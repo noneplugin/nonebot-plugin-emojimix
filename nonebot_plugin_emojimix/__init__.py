@@ -9,6 +9,14 @@ emojimix = on_regex(rf'^(?P<code1>{pattern})\s*\+\s*(?P<code2>{pattern})$',
                     block=True, priority=13)
 
 
+__help__plugin_name__ = 'emojimix'
+__des__ = 'emoji合成器'
+__cmd__ = '{emoji1}+{emoji2}'
+__short_cmd__ = __cmd__
+__example__ = '😎+😁'
+__usage__ = f'{__des__}\nUsage:\n{__cmd__}\nExample:\n{__example__}'
+
+
 @emojimix.handle()
 async def _(msg: dict = RegexDict()):
     emoji_code1 = msg['code1']
