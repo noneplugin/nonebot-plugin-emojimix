@@ -35,9 +35,6 @@ def find_emoji(emoji_code: str) -> Optional[EmojiData]:
 
 
 async def mix_emoji(emoji_code1: str, emoji_code2: str) -> Union[str, bytes]:
-    if emoji_code1 == emoji_code2:
-        return '请输入两个不同的emoji'
-
     emoji1 = find_emoji(emoji_code1)
     emoji2 = find_emoji(emoji_code2)
     if not emoji1:
