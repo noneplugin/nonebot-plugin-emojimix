@@ -18,7 +18,7 @@ def create_url(emoji1: EmojiData, emoji2: EmojiData) -> str:
 
     u1 = emoji_code(emoji1)
     u2 = emoji_code(emoji2)
-    return f"{API}{emoji1[2]}/{u1}/{u1}_{u2}.png"
+    return f"{API}{emoji1[1]}/{u1}/{u1}_{u2}.png"
 
 
 def find_emoji(emoji_code: str) -> Optional[EmojiData]:
