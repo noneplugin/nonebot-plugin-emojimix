@@ -1,13 +1,11 @@
+import re
+from emoji.unicode_codes import UNICODE_EMOJI
+
 from nonebot import on_regex
 from nonebot.params import RegexDict
 from nonebot.adapters.onebot.v11 import MessageSegment
 
 from .data_source import mix_emoji
-
-pattern = "[\u200d-\U0001fab5]"
-emojimix = on_regex(
-    rf"^(?P<code1>{pattern})\s*\+\s*(?P<code2>{pattern})$", block=True, priority=13
-)
 
 
 __help__plugin_name__ = "emojimix"
@@ -16,6 +14,15 @@ __cmd__ = "{emoji1}+{emoji2}"
 __short_cmd__ = __cmd__
 __example__ = "😎+😁"
 __usage__ = f"{__des__}\nUsage:\n{__cmd__}\nExample:\n{__example__}"
+
+
+emojis = filter(lambda e: len(e) == 1, UNICODE_EMOJI["en"])
+pattern = "(" + "|".join(re.escape(e) for e in emojis) + ")"
+emojimix = on_regex(
+    rf"^\s*(?P<code1>{pattern})\s*\+\s*(?P<code2>{pattern})\s*$",
+    block=True,
+    priority=13,
+)
 
 
 @emojimix.handle()

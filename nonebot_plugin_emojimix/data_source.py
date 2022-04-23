@@ -39,11 +39,9 @@ async def mix_emoji(emoji_code1: str, emoji_code2: str) -> Union[str, bytes]:
 
     url1 = create_url(emoji1, emoji2)
     url2 = create_url(emoji2, emoji1)
-    logger.info(url1)
-    logger.info(url2)
     try:
         async with httpx.AsyncClient(
-            proxies=emoji_config.http_proxy, timeout=10
+            proxies=emoji_config.http_proxy, timeout=20
         ) as client:
             resp = await client.get(url1)
             if resp.status_code == 200:
