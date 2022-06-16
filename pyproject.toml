@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nonebot_plugin_emojimix"
-version = "0.1.5"
+version = "0.1.6"
 description = "Nonebot2 plugin for emojimix"
 authors = ["meetwq <meetwq@gmail.com>"]
 license = "MIT"
@@ -18,6 +18,9 @@ emoji = "^1.7.0"
 [tool.poetry.dev-dependencies]
 nb-cli = "^0.6.0"
 black = "^22.1.0"
+
+[tool.black]
+line-length = 150
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
