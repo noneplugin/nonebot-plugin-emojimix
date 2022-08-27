@@ -1,5 +1,5 @@
 import re
-from emoji.unicode_codes import UNICODE_EMOJI
+import emoji
 
 from nonebot import on_regex
 from nonebot.params import RegexDict
@@ -18,12 +18,12 @@ __plugin_meta__ = PluginMetadata(
         "unique_name": "emojimix",
         "example": "😎+😁",
         "author": "meetwq <meetwq@gmail.com>",
-        "version": "0.1.7",
+        "version": "0.1.8",
     },
 )
 
 
-emojis = filter(lambda e: len(e) == 1, UNICODE_EMOJI["en"])
+emojis = filter(lambda e: len(e) == 1, emoji.EMOJI_DATA.keys())
 pattern = "(" + "|".join(re.escape(e) for e in emojis) + ")"
 emojimix = on_regex(
     rf"^\s*(?P<code1>{pattern})\s*\+\s*(?P<code2>{pattern})\s*$",
