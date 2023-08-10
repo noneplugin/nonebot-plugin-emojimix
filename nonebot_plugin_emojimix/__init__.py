@@ -27,7 +27,7 @@ __plugin_meta__ = PluginMetadata(
         "unique_name": "emojimix",
         "example": "😎+😁",
         "author": "meetwq <meetwq@gmail.com>",
-        "version": "0.3.0",
+        "version": "0.3.1",
     },
 )
 
