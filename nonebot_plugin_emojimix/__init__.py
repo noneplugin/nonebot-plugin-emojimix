@@ -4,13 +4,12 @@ import emoji
 from nonebot import on_message, require
 from nonebot.matcher import Matcher
 from nonebot.params import EventPlainText
-from nonebot.plugin import PluginMetadata
+from nonebot.plugin import PluginMetadata, inherit_supported_adapters
 from nonebot.typing import T_State
 
-require("nonebot_plugin_saa")
+require("nonebot_plugin_alconna")
 
-from nonebot_plugin_saa import Image, MessageFactory
-from nonebot_plugin_saa import __plugin_meta__ as saa_plugin_meta
+from nonebot_plugin_alconna import UniMessage
 
 from .config import Config
 from .data_source import mix_emoji
@@ -22,12 +21,9 @@ __plugin_meta__ = PluginMetadata(
     type="application",
     homepage="https://github.com/noneplugin/nonebot-plugin-emojimix",
     config=Config,
-    supported_adapters=saa_plugin_meta.supported_adapters,
+    supported_adapters=inherit_supported_adapters("nonebot_plugin_alconna"),
     extra={
-        "unique_name": "emojimix",
         "example": "😎+😁",
-        "author": "meetwq <meetwq@gmail.com>",
-        "version": "0.3.1",
     },
 )
 
@@ -63,5 +59,4 @@ async def _(state: T_State, matcher: Matcher):
     if isinstance(result, str):
         await matcher.finish(result)
 
-    await MessageFactory(Image(result)).send()
-    await matcher.finish()
+    await UniMessage.image(raw=result).send()
