@@ -1,5 +1,5 @@
 import traceback
-from typing import List, Optional, Union
+from typing import Optional, Union
 
 import httpx
 from nonebot.log import logger
@@ -10,8 +10,8 @@ from .emoji_data import dates, emojis
 API = "https://www.gstatic.com/android/keyboard/emojikitchen/"
 
 
-def create_url(date: str, emoji1: List[int], emoji2: List[int]) -> str:
-    def emoji_code(emoji: List[int]):
+def create_url(date: str, emoji1: list[int], emoji2: list[int]) -> str:
+    def emoji_code(emoji: list[int]):
         return "-".join(f"u{c:x}" for c in emoji)
 
     u1 = emoji_code(emoji1)
@@ -19,7 +19,7 @@ def create_url(date: str, emoji1: List[int], emoji2: List[int]) -> str:
     return f"{API}{date}/{u1}/{u1}_{u2}.png"
 
 
-def find_emoji(emoji_code: str) -> Optional[List[int]]:
+def find_emoji(emoji_code: str) -> Optional[list[int]]:
     emoji_num = ord(emoji_code)
     for e in emojis:
         if emoji_num in e:
@@ -35,15 +35,15 @@ async def mix_emoji(emoji_code1: str, emoji_code2: str) -> Union[str, bytes]:
     if not emoji2:
         return f"不支持的emoji：{emoji_code2}"
 
-    urls: List[str] = []
+    urls: list[str] = []
     for date in dates:
         urls.append(create_url(date, emoji1, emoji2))
         urls.append(create_url(date, emoji2, emoji1))
 
     try:
         async with httpx.AsyncClient(
-            proxies=emoji_config.http_proxy, timeout=20
-        ) as client:  # type: ignore
+            proxy=emoji_config.http_proxy, timeout=20
+        ) as client:
             for url in urls:
                 resp = await client.get(url)
                 if resp.status_code == 200:
